@@ -160,17 +160,6 @@ function Header() {
                   </ul>
                 </li>
                 <li className="nav-list-item">
-                  <Link href="/location">
-                    <a
-                      className="list-item-link"
-                      id="operating-location"
-                      onClick={handleNavClose}
-                    >
-                      營運據點
-                    </a>
-                  </Link>
-                </li>
-                <li className="nav-list-item">
                   <Link href="/home">
                     <a
                       className="list-item-link"
@@ -178,31 +167,6 @@ function Header() {
                       onClick={handleNavClose}
                     >
                       首頁
-                    </a>
-                  </Link>
-                </li>
-              </ul>
-              <ul className="sub-list list-s0 g-flex g-vertical">
-                <li className="nav-list-item">
-                  <Link href="/location">
-                    <a
-                      className="list-item-link"
-                      id="service"
-                      onClick={handleNavClose}
-                    >
-                      聯絡我們
-                    </a>
-                  </Link>
-                </li>
-                <li className="nav-list-item">
-                  <Link href="https://www.facebook.com/%E6%9D%B1%E7%92%9F%E5%AE%B6%E5%85%B7-106292538033380">
-                    <a
-                      className="list-item-link"
-                      id="facebook"
-                      target="_blank"
-                      onClick={handleNavClose}
-                    >
-                      Facebook
                     </a>
                   </Link>
                 </li>
