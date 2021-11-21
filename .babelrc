@@ -1,0 +1,16 @@
+{
+  "presets": [
+    [
+      "next/babel",
+      {
+        "styled-jsx": {
+          "plugins": [
+            // write jsx in sass
+            "styled-jsx-plugin-sass"
+            // "styled-jsx-plugin-stylus"
+          ]
+        }
+      }
+    ]
+  ]
+}
