@@ -25,7 +25,7 @@ const SearchDetail = (props) => {
   return (
     <>
       <HeadMeta
-        title={'OP Keywords - 搜尋'}
+        title={`${searchDetailData.question}`}
         description={'OP Keywords'}
         keywords={'OP Keywords'}
       />

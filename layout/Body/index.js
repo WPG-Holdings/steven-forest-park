@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import PageTransition from '@/components/Transition/PageTransition';
 import Aside from '../Aside';
+import Footer from '../Footer';
 
 function Body(props) {
   const { keywordDataList } = props;
@@ -18,6 +19,7 @@ function Body(props) {
           <Aside keywordDataList={keywordDataList} />
         </div>
       </main>
+      <Footer />
       <style jsx>{`
         .main-content {
           display: flex;

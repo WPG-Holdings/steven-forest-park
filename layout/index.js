@@ -24,7 +24,7 @@ function Layout(props) {
     <div id="page-site" className="page-site">
       <Header />
       <Body keywordDataList={keywordDataList}>{props.children}</Body>
-      <Footer />
+      
     </div>
   );
 }

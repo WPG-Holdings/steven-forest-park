@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
     top: 0,
     boxSizing: 'border-box',
     borderRadius: 6,
-    height: '80%',
+    height: '60%',
     width: '40%',
     margin: '90px auto',
   },
@@ -188,8 +188,6 @@ const LoginDialog = (props) => {
                   <button className="button register-btn">立即註冊</button>
                 </div>
               </div>
-              <hr className="divider-line" />
-              <div></div>
             </div>
           </DialogContentText>
         </DialogContent>
@@ -204,9 +202,6 @@ const LoginDialog = (props) => {
           display: flex;
           width: 60%;
           margin: 10px auto;
-        }
-        .divider-line {
-          width: 70%;
         }
       `}</style>
     </>

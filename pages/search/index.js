@@ -10,19 +10,79 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InfiniteScroll from '@/components/InfiniteScroll';
 import SearchListItem from './listItem';
 import { retryFailedRequest } from '@/api/instances';
-
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import Box from '@material-ui/core/Box';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  maxHeight: '500px',
+  hight: '80%',
+  width: '90%',
+  backgroundColor: '#F2F0EB',
+  boxShadow: 24,
+  p: 4,
+};
+
+const teamTagList = [
+  'ITU1',
+  'ITU3-Flow',
+  'ITU5-B2B',
+  'ITU6-WMS/LGS',
+  'ITU5-大大邦/購',
+  'DSU-訂單辨識',
+  'ITU9-CHT',
+  'ITU3-Java',
+  'ITU3-BI',
+  'ITU9-ITU9',
+  'ITU8',
+  'ITU7',
+  'ITU6-LaaS',
+  'ITU5-大大通/頻',
+  'ITU6-WmsRS',
+];
+
+const systemTagList = [
+  'erp',
+  'webflow',
+  '大大邦',
+  'wms',
+  'b2b',
+  'bi',
+  'udl',
+  'eip',
+  'BpaaS',
+  'lgs',
+  'mt會議類',
+  'nw網路類',
+  'softphone類',
+  'Outlook/Mail相關',
+  'others',
+  'discover',
+  '大大通',
+  'x',
+  'MFA',
+  'Mobile',
+  'dts',
+  'hw硬體類-電腦類',
+  'oa總務類',
+  'Office',
+  'apps',
+  'emaker',
+  'sw軟體類',
+  '大大購',
+];
 
 const Search = (props) => {
   const router = useRouter();
 
   const [queryString, setQueryString] = useState(router.query.q);
+  const [selecedTeamTag, setSelecedTeamTag] = useState(router.query.team);
+  const [selecedSysTag, setSelecedSysTag] = useState(router.query.sys);
 
   const handleSearch = (queryString) => {
     try {
@@ -56,7 +116,7 @@ const Search = (props) => {
     setPageNum(nextPageNum);
   };
 
-  const initDataHandler = (queryString) => {
+  const initDataHandler = (queryString, selecedTeamTag, selecedSysTag) => {
     if (!queryString) {
       endHandler();
       return;
@@ -64,10 +124,32 @@ const Search = (props) => {
     (async () => {
       setIsLoading(true);
       try {
-        const searchResult = await api.search.postSearchQuery({
-          page: 1,
-          question: queryString,
-        });
+        let searchResult;
+        if (selecedTeamTag && selecedSysTag) {
+          searchResult = await api.search.postSearchQuery({
+            page: 1,
+            question: queryString,
+            sys: selecedSysTag,
+            team: selecedTeamTag,
+          });
+        } else if (selecedTeamTag) {
+          searchResult = await api.search.postSearchQuery({
+            page: 1,
+            question: queryString,
+            team: selecedTeamTag,
+          });
+        } else if (selecedSysTag) {
+          searchResult = await api.search.postSearchQuery({
+            page: 1,
+            question: queryString,
+            sys: selecedSysTag,
+          });
+        } else {
+          searchResult = await api.search.postSearchQuery({
+            page: 1,
+            question: queryString,
+          });
+        }
 
         if (searchResult.data.searchHits) {
           setMainData(searchResult.data.searchHits);
@@ -81,7 +163,6 @@ const Search = (props) => {
       }
       setIsLoading(false);
     })();
-
     setPageNum(1);
     setHasMore(true);
     setIsEnd(false);
@@ -89,8 +170,12 @@ const Search = (props) => {
 
   useEffect(() => {
     const initQueryString = router.query.q;
+    const initTeamTag = router.query.team;
+    const initSysTag = router.query.sys;
     setQueryString(initQueryString);
-    initDataHandler(initQueryString);
+    setSelecedTeamTag(initTeamTag);
+    setSelecedSysTag(initSysTag);
+    initDataHandler(initQueryString, initTeamTag, initSysTag);
   }, [router]);
 
   const fetchMoreData = async () => {
@@ -100,10 +185,32 @@ const Search = (props) => {
     if (nextPageNum === 3) return;
 
     try {
-      const nextMainData = await api.search.postSearchQuery({
-        page: nextPageNum,
-        question: queryString,
-      });
+      let nextMainData;
+      if (selecedTeamTag && selecedSysTag) {
+        nextMainData = await api.search.postSearchQuery({
+          page: pageNum,
+          question: queryString,
+          sys: selecedSysTag,
+          team: selecedTeamTag,
+        });
+      } else if (selecedTeamTag) {
+        nextMainData = await api.search.postSearchQuery({
+          page: pageNum,
+          question: queryString,
+          team: selecedTeamTag,
+        });
+      } else if (selecedSysTag) {
+        nextMainData = await api.search.postSearchQuery({
+          page: pageNum,
+          question: queryString,
+          sys: selecedSysTag,
+        });
+      } else {
+        nextMainData = await api.search.postSearchQuery({
+          page: pageNum,
+          question: queryString,
+        });
+      }
 
       showLoadMore ? setHasMore(false) : setHasMore(true);
       if (!nextMainData.data.searchHits.length) endHandler();
@@ -122,10 +229,32 @@ const Search = (props) => {
 
     (async () => {
       try {
-        const nextMainData = await api.search.postSearchQuery({
-          page: pageNum,
-          question: queryString,
-        });
+        let nextMainData;
+        if (selecedTeamTag && selecedSysTag) {
+          nextMainData = await api.search.postSearchQuery({
+            page: pageNum,
+            question: queryString,
+            sys: selecedSysTag,
+            team: selecedTeamTag,
+          });
+        } else if (selecedTeamTag) {
+          nextMainData = await api.search.postSearchQuery({
+            page: pageNum,
+            question: queryString,
+            team: selecedTeamTag,
+          });
+        } else if (selecedSysTag) {
+          nextMainData = await api.search.postSearchQuery({
+            page: pageNum,
+            question: queryString,
+            sys: selecedSysTag,
+          });
+        } else {
+          nextMainData = await api.search.postSearchQuery({
+            page: pageNum,
+            question: queryString,
+          });
+        }
 
         if (!nextMainData.data.searchHits.length) endHandler();
         else successHandler(nextMainData.data.searchHits);
@@ -137,21 +266,8 @@ const Search = (props) => {
   };
 
   /* 無限下拉 end */
-  const [department, setDepartment] = React.useState('');
-  const [platform, setPlatform] = React.useState('');
-  const [progress, setProgress] = React.useState('');
 
-  const handleFilter = (type, parameter) => {
-    switch (type) {
-      case 'department':
-        setDepartment(parameter);
-      case 'platform':
-        setPlatform(parameter);
-      case 'progress':
-        setProgress(parameter);
-    }
-  };
-
+  /*進階篩選 start*/
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -161,6 +277,199 @@ const Search = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const onTeamTagClick = (teamTag) => {
+    setSelecedTeamTag(teamTag);
+  };
+
+  const onSysTagClick = (sysTag) => {
+    setSelecedSysTag(sysTag);
+  };
+
+  const handleClearClick = () => {
+    setSelecedTeamTag([]);
+    setSelecedSysTag([]);
+  };
+
+  const handleComfirmClick = async () => {
+    const teamLength = selecedTeamTag && selecedTeamTag.length > 0;
+    const sysLength = selecedSysTag && selecedSysTag.length > 0;
+
+    try {
+      if (sysLength && teamLength) {
+        const filterResult = await api.search.postSearchQuery({
+          page: 1,
+          question: queryString,
+          sys: selecedSysTag,
+          team: selecedTeamTag,
+        });
+        if (filterResult.data.searchHits) {
+          setMainData(filterResult.data.searchHits);
+
+          router.push({
+            pathname: '/search',
+            query: { q: queryString, team: selecedTeamTag, sys: selecedSysTag },
+          });
+        }
+      } else if (teamLength) {
+        const filterResult = await api.search.postSearchQuery({
+          page: 1,
+          question: queryString,
+          team: selecedTeamTag,
+        });
+        if (filterResult.data.searchHits) {
+          setMainData(filterResult.data.searchHits);
+
+          router.push({
+            pathname: '/search',
+            query: { q: queryString, team: selecedTeamTag },
+          });
+        }
+      } else if (sysLength) {
+        const filterResult = await api.search.postSearchQuery({
+          page: 1,
+          question: queryString,
+          sys: selecedSysTag,
+        });
+        if (filterResult.data.searchHits) {
+          setMainData(filterResult.data.searchHits);
+
+          router.push({
+            pathname: '/search',
+            query: { q: queryString, sys: selecedSysTag },
+          });
+        }
+      } else {
+        router.push({
+          pathname: '/search',
+          query: { q: queryString },
+        });
+      }
+      setOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const AdvancedFilterDialog = () => {
+    return (
+      <>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <button className="close-btn button" onClick={handleClose}>
+              X
+            </button>
+            <div className="tag-section">
+              <div className="team-tag-list">
+                <div className="tag-title">部門</div>
+                <ul>
+                  {teamTagList.map((item) => (
+                    <li
+                      className={clsx('team-tag tag button', {
+                        isSelected: selecedTeamTag === item,
+                      })}
+                      onClick={() => onTeamTagClick(item)}
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="sys-tag-list">
+                <div className="tag-title">平台</div>
+                <ul>
+                  {systemTagList.map((item) => (
+                    <li
+                      className={clsx('sys-tag tag button', {
+                        isSelected: selecedSysTag === item,
+                      })}
+                      onClick={() => onSysTagClick(item)}
+                    >
+                      <div className="tag-label">{item}</div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="bottom-button-row">
+              <button className="button btn" onClick={handleComfirmClick}>
+                確定
+              </button>
+              <button className="button btn" onClick={handleClearClick}>
+                清除
+              </button>
+            </div>
+          </Box>
+        </Modal>
+
+        <style jsx>{`
+          .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+          }
+          ul {
+            list-style: none;
+          }
+          .tag-title {
+            font-size: 18px;
+            font-weight: bold;
+            position: relative;
+            left: 38px;
+          }
+          .tag {
+            margin-bottom: 20px;
+          }
+
+          .tag-section {
+            display: flex;
+            .team-tag-list {
+              ul {
+                -webkit-column-count: 2;
+                -moz-column-count: 2;
+                column-count: 2;
+              }
+              .team-tag {
+                &.isSelected {
+                  font-weight: bold;
+                  color: #005c9f;
+                }
+              }
+            }
+            .sys-tag-list {
+              margin-left: 50px;
+              ul {
+                -webkit-column-count: 4;
+                -moz-column-count: 4;
+                column-count: 4;
+              }
+              .sys-tag {
+                &.isSelected {
+                  font-weight: bold;
+                  color: #005c9f;
+                }
+              }
+            }
+          }
+          .bottom-button-row {
+            float: right;
+            .btn {
+              border: 1px #000 solid;
+              padding: 5px 30px;
+              margin-left: 20px;
+              font-weight: bold;
+            }
+          }
+        `}</style>
+      </>
+    );
+  };
+  /*進階篩選 end*/
 
   const SearchListDOM = (() => {
     if (!mainData.length && !isLoading)
@@ -223,131 +532,6 @@ const Search = (props) => {
     );
   })();
 
-  const teamTagList = [
-    'ITU1',
-    'ITU3-Flow',
-    'ITU5-B2B',
-    'ITU6-WMS/LGS',
-    'ITU5-大大邦/購',
-    'DSU-訂單辨識',
-    'ITU9-CHT',
-    'ITU3-Java',
-    'ITU3-BI',
-    'ITU9-ITU9',
-    'ITU8',
-    'ITU7',
-    'ITU6-LaaS',
-    'ITU5-大大通/頻',
-    'ITU6-WmsRS',
-  ];
-
-  const systemTagList = [
-    'erp',
-    'webflow',
-    '大大邦',
-    'wms',
-    'b2b',
-    'bi',
-    'udl',
-    'eip',
-    'BpaaS',
-    'lgs',
-    'mt會議類',
-    'nw網路類',
-    'softphone類',
-    'Outlook/Mail相關',
-    'others',
-    'discover',
-    '大大通',
-    'x',
-    'MFA',
-    'Mobile',
-    'dts',
-    'hw硬體類-電腦類',
-    'oa總務類',
-    'Office',
-    'apps',
-    'emaker',
-    'sw軟體類',
-    '大大購',
-  ];
-
-  const [selecedTeamTag, setSelecedTeamTag] = useState();
-
-  const onTeamTagClick = (teamTag) => {
-    setSelecedTeamTag(teamTag);
-  };
-
-  const AdvancedFilterDialog = () => {
-    return (
-      <>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">進階篩選</DialogTitle>
-          <DialogContent>
-            <div className="tag-section">
-              <div>
-                <ul className="team-tag-list">
-                  {teamTagList.map((item) => (
-                    <li
-                      className={clsx('team-tag tag-btn button', {
-                        isSelected: selecedTeamTag === item,
-                      })}
-                      onClick={() => onTeamTagClick(item)}
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <ul className="sys-tag-list">
-                  {systemTagList.map((item) => (
-                    <li
-                      className="tag-btn button"
-                      // onClick={() => handleTagChange(item.labelCode)}
-                    >
-                      <div className="tag-label">{item}</div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Disagree</Button>
-            <Button onClick={handleClose} autoFocus>
-              Agree
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <style jsx>{`
-          .tag-section {
-            display: flex;
-            .section-title {
-              font-size: 16px;
-              font-weight: bold;
-              text-align: center;
-            }
-            .tag-btn {
-              display: flex;
-              margin-bottom: 20px;
-            }
-            .team-tag {
-              &.isSelected {
-                font-weight: bold;
-              }
-            }
-          }
-        `}</style>
-      </>
-    );
-  };
-
   return (
     <>
       <HeadMeta
@@ -375,7 +559,7 @@ const Search = (props) => {
                 type="Filter"
               />
             </button>
-            <button className="button filter-btn" onClick={handleClickOpen}>
+            <button className="button filter-btn">
               排序依據: 關聯度: 由高到低
               <IconSvg
                 fill="none"
@@ -386,10 +570,8 @@ const Search = (props) => {
               />
             </button>
           </div>
-
           <AdvancedFilterDialog />
         </div>
-
         <div>{SearchListDOM}</div>
       </div>
       <div></div>

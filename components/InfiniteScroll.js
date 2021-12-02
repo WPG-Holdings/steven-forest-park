@@ -31,7 +31,6 @@ export default function InfiniteScroll(props) {
           {!isEnd ? <a className="t-heading">更多內容</a> : <p>{endText}</p>}
         </div>
         <style jsx>{`
-          
           .infinite-scroll-more {
             margin-top: 25px;
             &.load-more {
@@ -69,7 +68,7 @@ export default function InfiniteScroll(props) {
           EndDOM
         )
       }
-      style={props.style}
+      style={{ overflow: 'hidden' }}
       height={props.height}
     >
       {props.children}

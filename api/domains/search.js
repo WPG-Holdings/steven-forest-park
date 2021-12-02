@@ -1,13 +1,15 @@
 import { NoAuthInstance } from '@/api/instances';
 
 export default {
-  postSearchQuery: ({ page, question }) => {
+  postSearchQuery: ({ page, question, team, sys }) => {
     const url = `/search/query`;
     const data = {
       page,
       size: 10,
       mustQueryMap: {
         question,
+        team,
+        sys,
       },
       shouldQueryMap: {},
       notQueryMap: {},

@@ -24,21 +24,29 @@ function Footer() {
   return (
     <>
       <footer id="footer" className="footer">
-        <div className="department-section">
-          <span className="contact-us-title">聯絡我們</span>
-          {footerItem.map((item, index) => {
-            return <span className="department">{item.name}</span>;
-          })}
+        <div className="footer-content">
+          <div className="department-section">
+            <span className="contact-us-title">聯絡我們</span>
+            {footerItem.map((item, index) => {
+              return <span className="department">{item.name}</span>;
+            })}
+          </div>
+          <div className="copyright-text">Copyright © 2021 WPG Holdings</div>
         </div>
-        <div className="copyright-text">Copyright © 2021 WPG Holdings</div>
       </footer>
       <style jsx>{`
         .footer {
+          position: relative;
           background: #5a5657;
           color: #fff;
           font-size: 12px;
-          padding: 10px 0;
-          margin-top: 120px;
+          padding-bottom: 30px;
+          margin-top: 250px;
+          .footer-content {
+            max-width: 1280px;
+            padding: 0 22px;
+            margin: 0 auto;
+          }
           .department-section {
             display: flex;
             padding: 20px 10px;

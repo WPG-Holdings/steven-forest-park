@@ -5,8 +5,6 @@ import AsideListItem from './listItem';
 const Aside = (props) => {
   const { keywordDataList } = props;
 
-  keywordDataList.map((item, index) => console.log(index + 1));
-
   return (
     <>
       <aside className="keywords-aside-chart">
