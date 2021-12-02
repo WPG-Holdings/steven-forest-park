@@ -5,9 +5,9 @@ export const BASIC_TOKEN = 'Basic ZXJpYzoxMjM0';
 export const API_BASE_URL = (() => {
   //const API_ENV = publicRuntimeConfig.API_ENV;
   const API_ENV = 'development';
-  const API_URL_TEST = 'http://47.242.215.153:8080';
-  const API_URL_UAT = 'http://47.242.215.153:8080';
-  const API_URL_PRODUCTION = 'https://jasonho.me';
+  const API_URL_TEST = 'http://10.21.252.167:8080';
+  const API_URL_UAT = 'http://10.21.252.167:8080';
+  const API_URL_PRODUCTION = 'http://10.21.252.167:8080';
 
   switch (API_ENV) {
     case 'development':

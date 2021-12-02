@@ -161,14 +161,13 @@ const IconSvg = (props) => {
         </>
       ),
     },
-    Edit: {
+    Filter: {
       attrs: {
-        className: `svg_icon svg_icon-edit ${className}`,
+        className: `svg_icon svg_icon-filter ${className}`,
       },
       dom: (
         <>
-          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
         </>
       ),
     },
@@ -183,70 +182,6 @@ const IconSvg = (props) => {
         </>
       ),
     },
-    Check: {
-      attrs: {
-        className: `svg_icon svg_icon-check ${className}`,
-      },
-      dom: (
-        <>
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </>
-      ),
-    },
-    Plus: {
-      attrs: {
-        className: `svg_icon svg_icon-plus ${className}`,
-      },
-      dom: (
-        <>
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </>
-      ),
-    },
-    Minus: {
-      attrs: {
-        className: `svg_icon svg_icon-minus ${className}`,
-      },
-      dom: <line x1="5" y1="12" x2="19" y2="12"></line>,
-    },
-    CheckCircle: {
-      attrs: {
-        className: `svg_icon svg_icon-check-circle ${className}`,
-      },
-      dom: (
-        <>
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-          <polyline points="22 4 12 14.01 9 11.01"></polyline>
-        </>
-      ),
-    },
-    TrashCan: {
-      attrs: {
-        className: `svg_icon svg_icon-trash_can ${className}`,
-      },
-      dom: (
-        <>
-          <polyline points="3 6 5 6 21 6"></polyline>
-          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-          <line x1="10" y1="11" x2="10" y2="17"></line>
-          <line x1="14" y1="11" x2="14" y2="17"></line>
-        </>
-      ),
-    },
-    Top: {
-      attrs: {
-        viewBox: '0 0 32 32',
-        className: `svg_icon svg_icon-top ${className}`,
-      },
-      dom: (
-        <path
-          d="M10,14c0.3,0,0.5-0.1,0.7-0.3L15,9.4V25c0,0.6,0.4,1,1,1s1-0.4,1-1V9.4l4.3,4.3c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3
-	c0.4-0.4,0.4-1,0-1.4l-6-6c-0.1-0.1-0.2-0.2-0.3-0.2c-0.2-0.1-0.5-0.1-0.8,0c-0.1,0.1-0.2,0.1-0.3,0.2l-6,6c-0.4,0.4-0.4,1,0,1.4
-	C9.5,13.9,9.7,14,10,14z"
-        />
-      ),
-    },
     Refresh_cw: {
       attrs: {
         className: `svg_icon svg_icon-refresh-cw ${className}`,
@@ -259,137 +194,24 @@ const IconSvg = (props) => {
         </>
       ),
     },
-    ArrowDownCircle: {
+    Check: {
       attrs: {
-        className: `svg_icon svg_icon-arrow-down-circle ${className}`,
+        className: `svg_icon svg_icon-check ${className}`,
       },
       dom: (
         <>
-          <circle cx="12" cy="12" r="10" />
-          <polygon points="7 9 12 16 17 9" style={{ fill: '#3195f0' }} />
+          <polyline points="20 6 9 17 4 12"></polyline>
         </>
       ),
     },
-    Mail: {
+    Copy: {
       attrs: {
-        className: `svg_icon svg_icon-mail ${className}`,
+        className: `svg_icon svg_icon-copy ${className}`,
       },
       dom: (
         <>
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-          <polyline points="22,6 12,13 2,6"></polyline>
-        </>
-      ),
-    },
-    FileText: {
-      attrs: {
-        className: `svg_icon svg_icon-file-text ${className}`,
-      },
-      dom: (
-        <>
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <line x1="16" y1="13" x2="8" y2="13"></line>
-          <line x1="16" y1="17" x2="8" y2="17"></line>
-          <polyline points="10 9 9 9 8 9"></polyline>
-        </>
-      ),
-    },
-    User: {
-      attrs: {
-        className: `svg_icon svg_icon-user ${className}`,
-      },
-      dom: (
-        <>
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </>
-      ),
-    },
-    Users: {
-      attrs: {
-        className: `svg_icon svg_icon-users ${className}`,
-      },
-      dom: (
-        <>
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-        </>
-      ),
-    },
-    Sun: {
-      attrs: {
-        className: `svg_icon svg_icon-sun ${className}`,
-      },
-      dom: (
-        <>
-          <circle cx="12" cy="12" r="5"></circle>
-          <line x1="12" y1="1" x2="12" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="23"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="1" y1="12" x2="3" y2="12"></line>
-          <line x1="21" y1="12" x2="23" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </>
-      ),
-    },
-    Moon: {
-      attrs: {
-        className: `svg_icon svg_icon-moon ${className}`,
-      },
-      dom: <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>,
-    },
-    Heart: {
-      attrs: {
-        className: `svg_icon svg_icon-moon ${className}`,
-      },
-      dom: (
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-      ),
-    },
-    Star: {
-      attrs: {
-        className: `svg_icon svg_icon-star ${className}`,
-      },
-      dom: (
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-      ),
-    },
-    Map: {
-      attrs: {
-        className: `svg_icon svg_icon-map-pin ${className}`,
-      },
-      dom: (
-        <>
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-          <circle cx="12" cy="10" r="3"></circle>
-        </>
-      ),
-    },
-    Award: {
-      attrs: {
-        className: `svg_icon svg_icon-award-pin ${className}`,
-      },
-      dom: (
-        <>
-          <circle cx="12" cy="8" r="7"></circle>
-          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-        </>
-      ),
-    },
-    Menu: {
-      attrs: {
-        className: `svg_icon svg_icon-menu ${className}`,
-      },
-      dom: (
-        <>
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
         </>
       ),
     },

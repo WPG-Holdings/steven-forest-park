@@ -9,83 +9,51 @@ function Footer() {
   const width = useMediaQuery(0);
 
   const footerItem = [
-    { value: 'dynastyid', name: '衡美 | 閣美' },
-    { value: 'nerverland', name: '小國生活' },
-    { value: 'andari-group', name: '安得利集團' },
-    { value: 'happy-future', name: '文泰興業' },
-    { value: 'green-city', name: '綠都家飾' },
-    { value: 'yisinai', name: '伊思奈家飾' },
-    { value: 'ligo', name: '利谷' },
-    { value: 'fantasyarts', name: '凡特思國際' },
-    { value: 'cftlawyer', name: '大仁律師事務所' },
+    { value: 'jason.ho@wpgholdings.com', name: 'ITU1' },
+    { value: 'jason.ho@wpgholdings.com', name: 'ITU3' },
+    { value: 'jason.ho@wpgholdings.com', name: 'ITU5' },
+    { value: 'jason.ho@wpgholdings.com', name: 'ITU6' },
+    { value: 'jason.ho@wpgholdings.com', name: 'ITU7' },
+    { value: 'jason.ho@wpgholdings.com', name: 'ITU8' },
+    { value: 'jason.ho@wpgholdings.com', name: 'ITU9' },
+    { value: 'jason.ho@wpgholdings.com', name: 'DSU' },
+    { value: 'jason.ho@wpgholdings.com', name: 'SSC' },
+    { value: 'jason.ho@wpgholdings.com', name: 'AM' },
   ];
 
   return (
     <>
       <footer id="footer" className="footer">
-        <div className="footer-container">
-          <div className="footer-nav-left">
-            <div className="link-block g-center">
-              <p className="link-title">ITU5</p>
-              <ul className="link-list list-s0">
-                <li className="link-item btn-ot">
-                  <Link href="/sofaList">
-                    <a id="footer-link-item-sofa"></a>
-                  </Link>
-                </li>
-                <li className="link-item btn-ot">
-                  <Link href="/bedList">
-                    <a id="footer-link-item-bed">DDT</a>
-                  </Link>
-                </li>
-                <li className="link-item btn-ot">
-                  <Link href="/chairList">
-                    <a id="footer-link-item-chair">DDB</a>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+        <div className="department-section">
+          <span className="contact-us-title">聯絡我們</span>
+          {footerItem.map((item, index) => {
+            return <span className="department">{item.name}</span>;
+          })}
         </div>
+        <div className="copyright-text">Copyright © 2021 WPG Holdings</div>
       </footer>
       <style jsx>{`
         .footer {
-          font-size: var(--f-s-12);
-          color: var(--cr-text-secondary);
-          background: var(--cr-background-secondary);
-          padding: 10px 16px;
-          margin-top: 100px;
-          position: relative;
-          width: 100%;
-          height: auto;
-          z-index: 1;
-          .footer-nav-left {
+          background: #5a5657;
+          color: #fff;
+          font-size: 12px;
+          padding: 10px 0;
+          margin-top: 120px;
+          .department-section {
             display: flex;
-            flex-direction: column;
-            .link-block {
-              display: block;
-              margin-bottom: 16px;
-              .link-title {
-                font-size: var(--f-s-14);
-                color: var(--cr-text-tertiary);
-                font-weight: bold;
-                margin-bottom: 16px;
-              }
-              .link-list {
-                display: flex;
-                flex-wrap: wrap;
-                color: var(--cr-text-secondary);
-                .link-item {
-                  margin: 0px 12px 12px 0px;
-                }
-              }
+            padding: 20px 10px;
+            .contact-us-title {
+              font-size: 14px;
+              font-weight: bold;
+              color: #84a3bc;
+            }
+            .department {
+              margin-left: 30px;
             }
           }
-          .footer-nav-right {
-            color: var(--cr-text-tertiary);
-            .add-line {
-              margin-top: 24px;
-            }
+          .copyright-text {
+            text-align: right;
+            margin-right: 20px;
           }
         }
       `}</style>

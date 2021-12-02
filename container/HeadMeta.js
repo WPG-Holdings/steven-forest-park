@@ -5,7 +5,7 @@ const HeadMeta = (props) => {
   return (
     <Head>
       <title>{props.title}</title>
-      <link rel="icon" href="/dung-jing-logo-white.png" />
+      {/* <link rel="icon" href="/dung-jing-logo-white.png" /> */}
       <meta name="keywords" content={props.keywords} />
       <meta
         name="description"

@@ -115,7 +115,20 @@ a {
   flex-direction: column;
   flex-wrap: nowrap;
 }
-
+.button {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  &:focus {
+    outline: none;
+  }
+}
+.t-heading {
+  letter-spacing: 0.1px;
+  font: var(--t-heading);
+}
 .button-s0 {
   cursor: pointer;
   border: none;

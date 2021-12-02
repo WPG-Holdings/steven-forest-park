@@ -1,82 +1,85 @@
 import HeadMeta from '@/container/HeadMeta';
 import styles from '../styles/Home.module.css';
 import React, { useContext, useState, useEffect } from 'react';
-
-import { ThemeContext } from '@/pages/_app';
-import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-
-import IconSvg from '@/components/IconSvg';
-import ImageTitleDOML from '@/components/ImageTitleDOML';
 import api from '@/api';
+import SearchBar from '@/components/SearchBar';
+import { useRouter } from 'next/router';
 
 export default function Home() {
-  const { useTheme } = useContext(ThemeContext);
-  const [videoData, setVideoData] = useState();
+  const router = useRouter();
 
-  const getVideoList = async () => {
+  const [queryString, setQueryString] = useState(router.query.q);
+
+  useEffect(() => {
+    const initQueryString = router.query.q;
+    setQueryString(initQueryString);
+    // initDataHandler(initQueryString);
+  }, [router]);
+
+  const handleSearch = (queryString) => {
     try {
-      const data = await api.list.getVideoList(448);
-      setVideoData(data.data.acf.video);
+      router.push({
+        pathname: '/search',
+        query: { q: queryString },
+      });
     } catch (error) {
-      console.log(error);
+      console.log('handleSearch -> error', error);
     }
   };
-  useEffect(() => {
-    getVideoList();
-  }, []);
 
   return (
     <>
       <HeadMeta
-        title={'東璟家具 - 首頁'}
-        description={'動心，盡在落座一刻'}
-        keywords={'精品家具,沙發,床架,單椅,時尚,家具,生活美學'}
+        title={'OP Keywords - 首頁'}
+        description={'OP Keywords'}
+        keywords={'OP Keywords'}
       />
-      <div id="page-home" className="page-home">
-        <p>Search It!!!!!!!!!!!!!</p>
+      <div id="homePage" className="home-page">
+        <div className="search-bar-section">
+          <h1>
+            <span className="gray">O O O O O </span>
+            <span className="blue">P </span>
+            <span className="blue">K</span>
+            <span className="skyBlue">ey</span>
+            <span className="gray">word</span>
+            <span className="yellow">s</span>
+          </h1>
+          <SearchBar
+            type={'main'}
+            onHandleSearch={handleSearch}
+            onChangeInput={setQueryString}
+            queryString={queryString}
+          />
+        </div>
       </div>
       <style jsx>{`
-        .sloganText-area {
+        .home-page {
           display: flex;
           justify-content: center;
-          background-color: var(--cr-background-secondary);
-          font-weight: bold;
-          color: var(--cr-text-secondary);
-          text-align: center;
-          font-size: var(--f-s-16);
-          line-height: 36px;
-          .text-area {
-            width: 90%;
-            border-top: 3px solid var(--cr-text-tertiary);
-            border-bottom: 3px solid var(--cr-text-tertiary);
-            padding-top: 60px;
-            padding-bottom: 60px;
-            p {
-              margin: 0;
-              padding: 16px;
-            }
+          h1 {
+            text-align: center;
+          }
+          .search-bar-section {
+            width: 80%;
+            margin-top: 10%;
+          }
+          .keywords-aside-chart {
+            width: 20%;
+            margin-top: 5%;
           }
         }
-
-        @media only screen and (min-width: ${useTheme.layout.mediaXSmall}px) {
-          .sloganText-area {
-            font-size: var(--f-s-22);
-            .text-area {
-              p {
-                margin: 0;
-                padding: 20px;
-              }
-            }
-          }
+        .gray {
+          color: #626367;
         }
-
-        @media only screen and (min-width: ${useTheme.layout.mediaMedium}px) {
-          .sloganText-area {
-            font-size: var(--f-s-28);
-            .text-area {
-            }
-          }
+        .blue {
+          color: #005c9f;
+        }
+        .skyBlue {
+          color: #84a3bc;
+        }
+        .yellow {
+          color: #ffc849;
         }
       `}</style>
     </>
