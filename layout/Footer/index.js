@@ -8,7 +8,7 @@ function Footer() {
   const { useTheme } = useContext(ThemeContext);
   const width = useMediaQuery(0);
   const router = useRouter();
-  const isHomePage = router.pathname === '/';
+  const isSearchPage = router.pathname === '/search';
 
   const footerItem = [
     { name: 'ITU1' },
@@ -38,14 +38,14 @@ function Footer() {
       </footer>
       <style jsx>{`
         .footer {
-          position: ${isHomePage ? 'absolute' : 'relative'};
+          position: ${!isSearchPage ? 'absolute' : 'relative'};
           background: #5a5657;
           color: #fff;
           font-size: 12px;
           bottom: 0px;
           height: 100px;
           width: 100%;
-          margin-top: ${isHomePage ? '0' : '200px'};
+          margin-top: ${!isSearchPage ? '0' : '200px'};
           .footer-content {
             padding: 0 22px;
             margin: 0 auto;
