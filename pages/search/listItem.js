@@ -53,7 +53,7 @@ const SearchListItem = (props) => {
       <style jsx>{`
         .search-list-item {
           margin: 20px auto;
-          width: 100%;
+          width: 90%;
           .title {
             color: #005c9f;
             font-size: 16px;

@@ -478,7 +478,7 @@ const Search = (props) => {
           <div className="no-result">
             <div className="message-container">
               <div className="message">
-                <h1>抱歉，沒有找到任何相關資訊。</h1>
+                <h1>抱歉，沒有找到相關資訊。</h1>
                 <p className="sub-title">請嘗試其他搜尋條件。</p>
               </div>
             </div>

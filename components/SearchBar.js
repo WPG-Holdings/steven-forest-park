@@ -25,7 +25,7 @@ const SearchBar = (props) => {
         />
         <button
           type="button"
-          // onClick={() => props.onClickButton(props.queryString)}
+          onClick={() => props.onHandleSearch(queryString)}
           className="search-button button"
         >
           <IconSvg

@@ -7,18 +7,20 @@ import { ThemeContext } from '@/pages/_app';
 function Footer() {
   const { useTheme } = useContext(ThemeContext);
   const width = useMediaQuery(0);
+  const router = useRouter();
+  const isHomePage = router.pathname === '/';
 
   const footerItem = [
-    { value: 'jason.ho@wpgholdings.com', name: 'ITU1' },
-    { value: 'jason.ho@wpgholdings.com', name: 'ITU3' },
-    { value: 'jason.ho@wpgholdings.com', name: 'ITU5' },
-    { value: 'jason.ho@wpgholdings.com', name: 'ITU6' },
-    { value: 'jason.ho@wpgholdings.com', name: 'ITU7' },
-    { value: 'jason.ho@wpgholdings.com', name: 'ITU8' },
-    { value: 'jason.ho@wpgholdings.com', name: 'ITU9' },
-    { value: 'jason.ho@wpgholdings.com', name: 'DSU' },
-    { value: 'jason.ho@wpgholdings.com', name: 'SSC' },
-    { value: 'jason.ho@wpgholdings.com', name: 'AM' },
+    { name: 'ITU1' },
+    { name: 'ITU3' },
+    { name: 'ITU5' },
+    { name: 'ITU6' },
+    { name: 'ITU7' },
+    { name: 'ITU8' },
+    { name: 'ITU9' },
+    { name: 'DSU' },
+    { name: 'SSC' },
+    { name: 'AM' },
   ];
 
   return (
@@ -36,14 +38,15 @@ function Footer() {
       </footer>
       <style jsx>{`
         .footer {
-          position: relative;
+          position: ${isHomePage ? 'absolute' : 'relative'};
           background: #5a5657;
           color: #fff;
           font-size: 12px;
-          padding-bottom: 30px;
-          margin-top: 250px;
+          bottom: 0px;
+          height: 100px;
+          width: 100%;
+          margin-top: ${isHomePage ? '0' : '200px'};
           .footer-content {
-            max-width: 1280px;
             padding: 0 22px;
             margin: 0 auto;
           }
